@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <title>Title of the document</title>
+    <link rel="stylesheet" type="text/css" href="bootstrap.css"></link>
+    <link rel="stylesheet" type="text/css" href="custom.css"></link>
+</head>
+
+<body>
+    <nav class="navbar navbar-custom">
+        <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Mojo TV</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="mojo.html">Conoce a Mojo</a></li>
+                <li><a href="/video-on-demand">Video on demand normal</a></li>
+                <li class="active"><a href="#">Video on demand HTML5</a></li>
+                <li><a href="camera.html">Grabar con cámara</a></li>
+                <li><a href="screen.html">Reproducir desde cámara</a></li>
+              </ul>
+            </div>
+      </div>
+    </nav>
+    <video width="800" height="600" controls>
+      <source src="/video-on-demand" type="video/mp4">
+    Your browser does not support the video tag.
+    </video>
+</body>
+
+</html>

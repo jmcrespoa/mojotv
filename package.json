@@ -1,0 +1,17 @@
+{
+  "name": "mojotv",
+  "version": "1.0.0",
+  "description": "The tv network that really cares about your mojo",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "justine",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "express": "^4.14.0",
+    "socket.io": "^1.5.1",
+    "socket.io-stream": "^0.9.1"
+  }
+}

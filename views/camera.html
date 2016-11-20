@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <title>Title of the document</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" type="text/css" href="bootstrap.css"></link>
+    <link rel="stylesheet" type="text/css" href="custom.css"></link>
+</head>
+
+<body onload="init();">
+    <nav class="navbar navbar-custom">
+        <div class="container-fluid">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="#">Mojo TV</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+              <ul class="nav navbar-nav">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="mojo.html">Conoce a Mojo</a></li>
+                <li><a href="/video-on-demand">Video on demand normal</a></li>
+                <li><a href="/video-tag-on-demand">Video on demand HTML5</a></li>
+                <li class="active"><a href="#">Grabar con cámara</a></li>
+                <li><a href="screen.html">Reproducir desde cámara</a></li>
+              </ul>
+            </div>
+      </div>
+    </nav>
+    
+    <div class="jumbotron">
+      <div class="container text-center">
+        <video id="screen" width="800" height="600" controls autoplay>
+        </video>
+        <canvas id="preview" style="display:none"></canvas>
+      </div>
+    </div>
+    
+    <footer class="container-fluid text-center">
+      <p>El autor de Mojo TV es plenamente consciente de lo rídiculo, triste y decepcionante que resulta su contribución a la Web.<p>En lugar de pedir perdón, simplemente dice: Hey! Tiene que haber de todo. </p>
+    </footer>
+<script>
+    var socket = io();
+    var canvas = document.getElementById('preview');
+    var context = canvas.getContext("2d");
+    var video = document.getElementById('screen');
+    canvas.width = 800;
+    canvas.height = 600;
+    context.width = canvas.width;
+    context.height = canvas.height;
+    
+    function loadCam(stream) {
+        video.src=window.URL.createObjectURL(stream);
+    }
+    function loadFail() {
+        console.log('Arggg! Something went wrong while loading the camera!');
+    }
+    function viewVideo(video, context) {
+        context.drawImage(video, 0, 0, context.width, context.height);
+        socket.emit('stream', canvas.toDataURL('image/webp'));
+    }
+    
+    function init() {
+        navigator.getUserMedia = (navigator.getUserMedia || 
+                                  navigator.webkitGetUserMedia || 
+                                  navigator.mozGetUserMedia || 
+                                  navigator.msgGetUserMedia);
+
+        if (navigator.getUserMedia) {
+            navigator.getUserMedia({video:true, audio:true}, loadCam, loadFail);
+        }
+        
+        setInterval(function(){
+            console.log('sending');
+            viewVideo(video, context);
+        }, 30);
+    }
+</script>
+</body>
+
+</html>
